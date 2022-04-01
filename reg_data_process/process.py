@@ -357,7 +357,6 @@ def gen_game_info(app_id,max_num):
     if app_id in review_app_list:
         app_reviews,sentiments_scores = fetch_game_reviews(app_id,max_num)
     else:
-        #print('no review file',app_id)
         app_reviews,sentiments_scores = [],[]
 
     g_info['reviews'] = app_reviews
@@ -384,22 +383,13 @@ with open('../game_info/cat_dict_vaild.json','r') as f:
        
 
 cat_total = []
-with open('../game_info/vaild_app_lists.txt','r') as f:
+with open('./vaild_app_lists.txt','r') as f:
     for i in f:
         cat_total.append(int(i.replace('\n','')))
 
-part_ids = cat_total[12000:]
 
-exit_apps = []
-with open('./cat_info/total_detail_new220_2.json','r') as f:
-    for i in f:
-        exit_apps.append(json.loads(i)['game_info']['game_id'])
-
-rest_apps = [x for x in part_ids if x not in exit_apps]
-print(len(rest_apps))
-
-with open('./cat_info/total_detail_new220_3.json','w') as f1:
-    for app_id in tqdm(rest_apps):
+with open('./total_detail.json','w') as f1:
+    for app_id in tqdm(cat_total):
         g_info = gen_game_info(app_id,1024)
         if g_info:
             item = {'subcat':game2cat[app_id],'game_info':g_info}

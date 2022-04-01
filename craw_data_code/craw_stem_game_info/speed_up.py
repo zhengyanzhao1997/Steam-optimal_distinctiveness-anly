@@ -24,22 +24,6 @@ def get_appid_list():
     return appid_list
 
 
-async def update_prox(session):
-    url='http://tiqu.ipidea.io:81/abroad?num=1&type=1&lb=6&sb=0&flow=1&regions=us&port=1'
-    for i in range(10):
-        try:
-            async with session.get(url,timeout=5) as context:
-                proxy = await context.text()
-            if len(proxy) == 0 or not proxy:
-                continue
-            proxies = 'http://' + proxy
-            print(proxies)
-            return proxies
-        except Exception as e:
-            print(f'get one proxy failed: {e}, times {i+1}')
-            return None
-
-
 async def request_func(appid,session,proxies):
     url = 'https://store.steampowered.com/app/' + str(appid)
     for tries in range(5):
@@ -126,15 +110,3 @@ async def main(output_file,appid_list):
                     continue
                 else:
                     f.write(json.dumps(info) + '\n')
-
-# if __name__ == '__main__':
-#     # appid_list = get_appid_list()
-#     # with open('./app_list.json','w') as f:
-#     #     f.write(json.dumps(appid_list))
-#
-#     app_file = './app_list.json'
-#     with open(app_file,'r') as f:
-#         appid_list = json.load(f)
-#
-#     output_file = './output.json'
-#     asyncio.run(main(output_file,appid_list))

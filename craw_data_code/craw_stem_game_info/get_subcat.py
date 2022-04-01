@@ -80,6 +80,6 @@ async def use_yibu():
             #assert len(app_lists) == max_num
             cat_dict[base_url] = app_lists
 
-    with open('cat_dict_new2.json','w') as f:
+    with open('cat_dict.json','w') as f:
         f.write(json.dumps(cat_dict))
 asyncio.run(use_yibu())

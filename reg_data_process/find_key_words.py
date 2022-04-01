@@ -8,7 +8,7 @@ import re
 import os
 
 keyword_dict = {}
-with open('./core_word_rebuild10.json','r') as f:
+with open('./core_word.json','r') as f:
     for i in f:
         item = json.loads(i)
         title = item['title']
@@ -74,7 +74,7 @@ dir_ = './subcat_no_embed_' + str(year_range[0]) + '_' + str(year_range[1]) + '/
 if not os.path.exists(dir_):
     os.makedirs(dir_)
 
-with open('./total_detail_new.json','r') as f1:
+with open('./total_detail.json','r') as f1:
     for app in tqdm(f1):
         app = json.loads(app)
         subcat = app['subcat']
@@ -109,7 +109,7 @@ with open('./total_detail_new.json','r') as f1:
                 cat_total_num[sub] += 1
             else:
                 cat_total_num[sub] = 1
-            with open(dir_ + sub + '.json' ,'a+') as f:
+            with open(dir_ + sub + '.json','a+') as f:
                 f.write(json.dumps(output_item) + '\n')
 
 print('result',cat_total_num)

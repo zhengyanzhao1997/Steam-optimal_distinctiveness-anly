@@ -38,10 +38,8 @@ back_translation_aug = naw.BackTranslationAug(from_model_name='facebook/wmt19-en
                                               max_length=1024)
 
 batch_size = 16
-#raw_text_saved = []
 clean_text_saved = []
 voted_up_saved = []
-#sentiment_score_saved = []
 save_count = 0
 with open(input_file,'r') as f:
     for i in tqdm(f):
@@ -54,10 +52,8 @@ with open(input_file,'r') as f:
             if clean_text:
                 sentiment_score = review['sentiment_score']
                 voted_up = review['voted_up']
-                #raw_text_saved.append(raw_text)
                 clean_text_saved.extend([clean_text]*4)
                 voted_up_saved.append(voted_up)
-                #sentiment_score_saved.append(sentiment_score)
                 save_count += 1
                 if save_count == batch_size:
                     augmented_text = back_translation_aug.augment(clean_text_saved)
@@ -68,8 +64,6 @@ with open(input_file,'r') as f:
                                     'augmented_text':augmented_text[index_*4:(index_+1)*4],
                                     'voted_up':voted_up_saved[index_]}
                             f1.write(json.dumps(item) + '\n')
-                    #raw_text_saved = []
                     clean_text_saved = []
                     voted_up_saved = []
-                    #sentiment_score_saved = []
                     save_count = 0

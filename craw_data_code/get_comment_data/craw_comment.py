@@ -1,14 +1,3 @@
-# Objective: download every Steam review for the games of your choice.
-#
-# Input:
-#   - idlist.txt
-#
-# Output:
-#   - idprocessed.txt
-#   - data/review_APPID.json for each APPID in idlist.txt
-#
-# Reference:
-#   https://raw.githubusercontent.com/CraigKelly/steam-data/master/data/games.py
 
 import copy
 import datetime
@@ -395,10 +384,7 @@ async def demo(app_lists):
                 tasks = []
 
 if __name__ == "__main__":
-    app_lists = get_data('./addition_app.txt')
-    # for root,dirs,files in os.walk('./data'):
-    #     got_apps = [int(file.split('_')[1].split('.')[0]) for file in files]
-    # app_lists = [i for i in app_lists if i not in got_apps]
+    app_lists = get_data('./app_lists.txt')
     print('need num',len(app_lists))
     asyncio.get_event_loop().run_until_complete(demo(app_lists))
 

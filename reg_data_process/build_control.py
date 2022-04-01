@@ -133,9 +133,9 @@ def deal_single_game(app,year_range):
     
  
 
-output_file = './after_control_220_total.json'
+output_file = './after_control.json'
 
-input_file = './final_key_words_220_total.json'
+input_file = './final_key_words.json'
 
 
 with open(output_file,'w') as f1:

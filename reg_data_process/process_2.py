@@ -15,7 +15,7 @@ device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cp
 print("Using {} device".format(device))
 
 
-sentiment_analysis = pipeline("sentiment-analysis",model="siebert/sentiment-roberta-large-english",device=0)
+sentiment_analysis = pipeline("sentiment-analysis",model="fine_grained_sentiment_model",device=0)
 
 
 def bindbatch(listTemp, n):
@@ -34,7 +34,7 @@ def model_pred_sentiment(texts):
 
 
 keyword_dict = {}
-with open('./core_word_rebuild10.json','r') as f:
+with open('core_word.json', 'r') as f:
     for i in f:
         item = json.loads(i)
         title = item['title']
@@ -105,7 +105,7 @@ with open('./final_key_words_220_3.json','r') as f:
 print(len(exit_apps))
 
 
-with open('./total_detail_new220_3.json','r') as f1:
+with open('./total_detail.json','r') as f1:
     for app in tqdm(f1):
         app = json.loads(app)
         subcat = app['subcat']
@@ -129,5 +129,5 @@ with open('./total_detail_new220_3.json','r') as f1:
         assert len(game_info['sentiments_scores']) == len(new_reviews)
         game_info['reviews'] = new_reviews
         output_item = {'subcat':subcat,'game_info':game_info}
-        with open('./final_key_words_220_3.json','a+') as f2:
+        with open('./final_key_words.json','a+') as f2:
             f2.write(json.dumps(output_item) + '\n')
